@@ -15,7 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 ROOT = Path(__file__).resolve().parents[2]
 MODEL_PATH = ROOT / "models" / "diabetes_model.joblib"
 FEATURE_PATH = ROOT / "models" / "feature_columns.json"
-
+METADATA_PATH = ROOT / "models" / "model_metadata.json"
 app = FastAPI(
     title="Medical Diagnosis AI",
     description=(
@@ -36,11 +36,11 @@ app.add_middleware(
 )
 model = None
 feature_columns = None
-
+model_name = "Unknown Model"
 
 @app.on_event("startup")
 def load_model():
-    global model, feature_columns
+    global model, feature_columns, model_name
 
     if not MODEL_PATH.exists() or not FEATURE_PATH.exists():
         raise RuntimeError(
@@ -51,6 +51,18 @@ def load_model():
 
     with open(FEATURE_PATH, "r", encoding="utf-8") as file:
         feature_columns = json.load(file)
+
+    if METADATA_PATH.exists():
+        with open(METADATA_PATH, "r", encoding="utf-8") as file:
+            model_metadata = json.load(file)
+
+        model_name = model_metadata.get(
+            "model_name", "Unknown Model"
+        )
+    else:
+        model_name = "Unknown Model"
+
+    print(f"Loaded model: {model_name}")
 
 
 @app.get("/")
@@ -94,7 +106,7 @@ def predict_diabetes(data: DiabetesInput):
     return DiabetesPrediction(
         predicted_class=predicted_class,
         estimated_probability=round(probability, 4),
-        model_name="Logistic Regression",
+        model_name=model_name,
         disclaimer=(
             "This educational model estimates a category recorded "
             "in survey data. It is not a diagnosis or a validated "

@@ -1,4 +1,5 @@
 
+import json
 from pathlib import Path
 
 import joblib
@@ -177,6 +178,13 @@ def main():
     model_path = MODEL_DIR / "diabetes_model.joblib"
     joblib.dump(best_model, model_path)
 
+    metadata_path = MODEL_DIR / "model_metadata.json"
+
+    with open(metadata_path, "w", encoding="utf-8") as f:
+        json.dump({"model_name": best_name}, f, indent=4)
+
+    print(f"Saved model metadata to: {metadata_path}")
+    
     feature_path = MODEL_DIR / "feature_columns.json"
     pd.Series(X.columns).to_json(
         feature_path, orient="values", indent=2
