@@ -745,3 +745,52 @@ select:focus-visible {
     align-items: flex-start;
   }
 }
+
+.binary-field small {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 8px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.helper-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 14px 16px;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  background: #f8fbff;
+  color: #334155;
+}
+
+.helper-note svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #2563eb;
+}
+
+.helper-note p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.binary-field select,
+.binary-field input {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .helper-note {
+    padding: 12px;
+  }
+
+  .binary-field small {
+    font-size: 12px;
+  }
+}
