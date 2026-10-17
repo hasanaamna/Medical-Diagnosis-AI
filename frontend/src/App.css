@@ -519,3 +519,87 @@ button:disabled { cursor: not-allowed; opacity: .65; }
     transition-duration: .01ms !important;
   }
 }
+
+
+
+/* Questionnaire progress and completion feedback */
+
+.question-progress {
+  margin: 0 0 18px;
+  padding: 17px 19px;
+  background: #fff;
+  border: 1px solid #e6ecf4;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgb(32 61 99 / 3%);
+}
+
+.progress-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.progress-copy span {
+  color: #536983;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.progress-copy strong {
+  color: #178f87;
+  font-size: 12px;
+}
+
+.question-progress-track {
+  height: 8px;
+  overflow: hidden;
+  background: #edf2f8;
+  border-radius: 20px;
+}
+
+.question-progress-track > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #2878df, #18a999);
+  border-radius: inherit;
+  transition: width 200ms ease;
+}
+
+.question-progress > p {
+  margin: 9px 0 0;
+  color: #8391a5;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.field-unanswered select,
+.field-unanswered input {
+  border-color: #e7a39c;
+  background: #fff9f8;
+}
+
+.field-unanswered .field-label::after {
+  content: " · Required";
+  color: #bd5149;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.field-complete select,
+.field-complete input {
+  border-color: #b7e5d9;
+}
+
+@media (max-width: 560px) {
+  .question-progress {
+    padding: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .question-progress-track > span {
+    transition: none;
+  }
+}
